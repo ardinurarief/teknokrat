@@ -67,6 +67,19 @@ function updateUI(data) {
     } else {
         document.getElementById('guest-sapaan').innerText = "Yth. Saudara/i";
     }
+
+    const rel = data.hubungan?.toLowerCase() || '';
+    let sapaanSambutan = "Yth. Bapak/Ibu/Saudara/i"; // Default
+    
+    if (rel.includes('orang tua') || rel.includes('ayah') || rel.includes('ibu')) {
+        sapaanSambutan = "Yth. Bapak/Ibu";
+    } else if (rel.includes('dosen') || rel.includes('rektor') || rel.includes('kaprodi')) {
+        sapaanSambutan = "Yth. Bapak/Ibu Dosen";
+    }
+    
+    document.getElementById('sambutan-sapaan').innerText = sapaanSambutan;
+    document.getElementById('sambutan-nama').innerText = 
+        `${data.nama_lengkap}${data.gelar ? ', ' + data.gelar : ''}`;
 }
 
 function finishLoading() {
