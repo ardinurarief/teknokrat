@@ -18,9 +18,10 @@
 
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Icon -->
+    <link rel="icon"
+        href="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <link rel="icon" href="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png" />
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -46,6 +47,16 @@
         body {
             font-family: "Montserrat", sans-serif;
             overflow-x: hidden;
+        }
+
+        /* Pastikan loading screen menutupi semua konten sampai data siap */
+        #loading-screen {
+            pointer-events: none;
+        }
+
+        body.loaded #loading-screen {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .font-cinzel {
@@ -165,6 +176,18 @@
                 </h1>
                 <p class="text-gray-200 text-lg font-light italic">Angkatan 2026</p>
             </div>
+
+            <!-- 3. KARTU NAMA TAMU DINAMIS (LETAKKAN DI SINI) -->
+            <div
+                class="text-white p-6 border border-yellow-500/30 rounded-2xl bg-white/5 backdrop-blur-md max-w-md mx-auto shadow-2xl shadow-black/20">
+                <p id="guest-sapaan" class="text-gray-400 text-[10px] uppercase tracking-[0.2em] mb-2">Kepada Yth.</p>
+                <h2 id="guest-name"
+                    class="font-cinzel text-2xl md:text-3xl font-bold text-yellow-500 leading-tight min-h-[3rem] flex items-center justify-center">
+                    Memuat...
+                </h2>
+                <p id="guest-gelar" class="text-gray-300 text-sm mt-2 min-h-[1.5rem]"></p>
+            </div>
+            <!-- END KARTU NAMA TAMU -->
 
             <!-- Button -->
             <button onclick="openInvitation()"
@@ -647,8 +670,7 @@
                 <!-- Logo & Nama Universitas -->
                 <div class="flex flex-col items-center mb-8">
                     <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
-                        alt="Logo Universitas Teknokrat"
-                        class="h-14 w-auto object-contain opacity-90 mb-4" />
+                        alt="Logo Universitas Teknokrat" class="h-14 w-auto object-contain opacity-90 mb-4" />
                     <h3 class="font-cinzel text-lg md:text-xl font-bold text-white tracking-wide">
                         UNIVERSITAS TEKNOKRAT
                     </h3>
@@ -688,6 +710,14 @@
         </footer>
     </main>
 
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen"
+        class="fixed inset-0 z-[200] bg-[#0f172a] flex flex-col items-center justify-center transition-opacity duration-500">
+        <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
+            alt="Loading Logo" class="h-20 w-auto animate-pulse mb-4">
+        <p class="text-gold text-xs uppercase tracking-[0.3em]">Menyiapkan undangan khusus...</p>
+    </div>
+    
     <script>
         // Initialize AOS Animation
         AOS.init({
@@ -759,46 +789,8 @@
             }
             isPlaying = !isPlaying;
         }
-
-        // Countdown Timer Logic
-        function startCountdown() {
-            const targetDate = new Date("2026-07-29T09:00:00").getTime();
-
-            const timerInterval = setInterval(function () {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                if (distance < 0) {
-                    clearInterval(timerInterval);
-                    document.getElementById("days").innerText = "00";
-                    document.getElementById("hours").innerText = "00";
-                    document.getElementById("minutes").innerText = "00";
-                    document.getElementById("seconds").innerText = "00";
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor(
-                    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                );
-                const minutes = Math.floor(
-                    (distance % (1000 * 60 * 60)) / (1000 * 60),
-                );
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("days").innerText =
-                    days < 10 ? "29" + days : days;
-                document.getElementById("hours").innerText =
-                    hours < 10 ? "11" + hours : hours;
-                document.getElementById("minutes").innerText =
-                    minutes < 10 ? "33" + minutes : minutes;
-                document.getElementById("seconds").innerText =
-                    seconds < 10 ? "50" + seconds : seconds;
-            }, 1000);
-        }
-
-        document.addEventListener("DOMContentLoaded", startCountdown);
     </script>
+    <script src="api-tamu.js"></script>
 </body>
 
 </html>
