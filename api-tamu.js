@@ -1,5 +1,5 @@
 // ==========================================
-// KONFIGURASI API - GANTI DENGAN URL ANDA
+// KONFIGURASI API
 // ==========================================
 const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzkjpzYtYwY0BgYlUssFaXgK33OFsHpLn_usbm8dC3J2VS1cUT3nn33W6VStVobRFLK8w/exec';
 
@@ -55,38 +55,34 @@ async function loadGuestData() {
 }
 
 function updateUI(data) {
+    // Update Cover Section
     document.getElementById('guest-name').innerText = data.nama_lengkap;
     document.getElementById('guest-gelar').innerText = data.gelar ? `, ${data.gelar}` : '';
 
-    // Personalisasi sapaan berdasarkan hubungan
+    // Personalisasi sapaan berdasarkan hubungan (DIDEKLARASIKAN HANYA SEKALI)
     const rel = data.hubungan?.toLowerCase() || '';
-    if (rel.includes('orang tua') || rel.includes('ayah') || rel.includes('ibu')) {
-        document.getElementById('guest-sapaan').innerText = "Yth. Bapak/Ibu";
-    } else if (rel.includes('dosen') || rel.includes('rektor') || rel.includes('kaprodi')) {
-        document.getElementById('guest-sapaan').innerText = "Yth. Bapak/Ibu Dosen";
-    } else {
-        document.getElementById('guest-sapaan').innerText = "Yth. Saudara/i";
-    }
-
-    const rel = data.hubungan?.toLowerCase() || '';
-    let sapaanSambutan = "Yth. Bapak/Ibu/Saudara/i"; // Default
     
+    let sapaanCover = "Yth. Saudara/i";
+    let sapaanSambutan = "Yth. Bapak/Ibu/Saudara/i";
+
     if (rel.includes('orang tua') || rel.includes('ayah') || rel.includes('ibu')) {
+        sapaanCover = "Yth. Bapak/Ibu";
         sapaanSambutan = "Yth. Bapak/Ibu";
     } else if (rel.includes('dosen') || rel.includes('rektor') || rel.includes('kaprodi')) {
+        sapaanCover = "Yth. Bapak/Ibu Dosen";
         sapaanSambutan = "Yth. Bapak/Ibu Dosen";
     }
-    
+
+    // Apply ke elemen HTML
+    document.getElementById('guest-sapaan').innerText = sapaanCover;
     document.getElementById('sambutan-sapaan').innerText = sapaanSambutan;
     document.getElementById('sambutan-nama').innerText = 
         `${data.nama_lengkap}${data.gelar ? ', ' + data.gelar : ''}`;
 }
 
 function finishLoading() {
-    // Beri jeda minimal agar transisi loading smooth
     setTimeout(() => {
         document.body.classList.add('loaded');
-        // Inisialisasi AOS hanya setelah data siap agar animasi tidak glitch
         AOS.init({ once: true, offset: 100, duration: 1000 });
     }, 800);
 }
