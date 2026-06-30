@@ -55,27 +55,38 @@ async function loadGuestData() {
 }
 
 function updateUI(data) {
-    // Update Cover Section
+    // 1. Update Nama & Gelar (Tetap sama)
     document.getElementById('guest-name').innerText = data.nama_lengkap;
     document.getElementById('guest-gelar').innerText = data.gelar ? `, ${data.gelar}` : '';
-
-    // Personalisasi sapaan berdasarkan hubungan (DIDEKLARASIKAN HANYA SEKALI)
-    const rel = data.hubungan?.toLowerCase() || '';
     
-    let sapaanCover = "Yth. Saudara/i";
-    let sapaanSambutan = "Yth. Bapak/Ibu/Saudara/i";
+    // 2. Tentukan Sapaan Berdasarkan Jenis Kelamin PRIORITAS UTAMA
+    const gender = data.jenis_kelamin?.toUpperCase().trim();
+    let sapaanCover = "Yth. Saudara/i"; // Default fallback
+    let sapaanSambutan = "Yth. Bapak/Ibu/Saudara/i"; // Default fallback
 
-    if (rel.includes('orang tua') || rel.includes('ayah') || rel.includes('ibu')) {
-        sapaanCover = "Yth. Bapak/Ibu";
-        sapaanSambutan = "Yth. Bapak/Ibu";
-    } else if (rel.includes('dosen') || rel.includes('rektor') || rel.includes('kaprodi')) {
-        sapaanCover = "Yth. Bapak/Ibu Dosen";
-        sapaanSambutan = "Yth. Bapak/Ibu Dosen";
+    if (gender === 'L') {
+        sapaanCover = "Yth. Bapak";
+        sapaanSambutan = "Yth. Bapak";
+    } else if (gender === 'P') {
+        sapaanCover = "Yth. Ibu";
+        sapaanSambutan = "Yth. Ibu";
+    } else {
+        // Fallback ke logika hubungan jika gender tidak diisi
+        const rel = data.hubungan?.toLowerCase() || '';
+        if (rel.includes('orang tua') || rel.includes('ayah') || rel.includes('ibu')) {
+            sapaanCover = "Yth. Bapak/Ibu";
+            sapaanSambutan = "Yth. Bapak/Ibu";
+        } else if (rel.includes('dosen') || rel.includes('rektor')) {
+            sapaanCover = "Yth. Bapak/Ibu Dosen";
+            sapaanSambutan = "Yth. Bapak/Ibu Dosen";
+        }
     }
 
-    // Apply ke elemen HTML
+    // 3. Apply ke HTML
     document.getElementById('guest-sapaan').innerText = sapaanCover;
     document.getElementById('sambutan-sapaan').innerText = sapaanSambutan;
+    
+    // Update nama di section sambutan juga
     document.getElementById('sambutan-nama').innerText = 
         `${data.nama_lengkap}${data.gelar ? ', ' + data.gelar : ''}`;
 }
