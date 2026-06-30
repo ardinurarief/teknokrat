@@ -18,10 +18,11 @@
 
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <!-- Icon -->
     <link rel="icon"
         href="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png" />
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -49,7 +50,7 @@
             overflow-x: hidden;
         }
 
-        /* Pastikan loading screen menutupi semua konten sampai data siap */
+        /* Loading Screen Logic */
         #loading-screen {
             pointer-events: none;
         }
@@ -57,6 +58,7 @@
         body.loaded #loading-screen {
             opacity: 0;
             pointer-events: none;
+            transition: opacity 0.5s ease;
         }
 
         .font-cinzel {
@@ -83,12 +85,7 @@
 
         /* Gold Gradient Text */
         .text-gold-gradient {
-            background: linear-gradient(to right,
-                    #bf953f,
-                    #fcf6ba,
-                    #b38728,
-                    #fbf5b7,
-                    #aa771c);
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -96,9 +93,7 @@
 
         /* Overlay for Opening */
         #opening-overlay {
-            transition:
-                transform 1s ease-in-out,
-                opacity 1s ease-in-out;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
         }
 
         .hidden-overlay {
@@ -131,19 +126,52 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Logo Filter to make it look golden/white on dark bg if needed, 
-           but original logo is colored so we keep it clean with a white bg circle or just drop shadow */
         .logo-container {
             filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+        }
+
+        /* ✅ PERBAIKAN: Universal Scroll Button (Tanpa @apply) */
+        .scroll-btn {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            cursor: pointer;
+            text-align: center;
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-btn:hover {
+            opacity: 1;
+        }
+
+        .scroll-btn i {
+            font-size: 1.25rem;
+            color: #eab308;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
         }
     </style>
 </head>
 
 <body class="bg-gray-900 text-white antialiased">
-    <!-- Audio Element (Hidden) -->
+    <!-- Audio Element -->
     <audio id="bg-music" loop>
         <source src="backsound.mp3" type="audio/mp3" />
-        Browser Anda tidak mendukung elemen audio.
     </audio>
 
     <!-- Floating Music Control -->
@@ -159,46 +187,37 @@
         class="fixed inset-0 z-[100] flex flex-col items-center justify-center text-center px-4 transition-transform duration-700 ease-in-out bg-cover bg-center"
         style="background-image: linear-gradient(rgba(26, 35, 126, 0.9), rgba(26, 35, 126, 0.9)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1000&q=80');">
         <div class="max-w-md mx-auto space-y-6" data-aos="zoom-in" data-aos-duration="1000">
-
-            <!-- Logo Section -->
             <div class="flex justify-center mb-4">
                 <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
-                    alt="Logo Universitas Teknokrat" class="h-28 w-auto object-contain drop-shadow-lg" />
+                    alt="Logo UT" class="h-28 w-auto object-contain drop-shadow-lg" />
             </div>
-
-            <!-- Text Content -->
             <div class="text-white">
-                <h3 class="text-yellow-500 tracking-[0.2em] text-xs uppercase font-semibold mb-2">
-                    The Graduation Ceremony
-                </h3>
-                <h1 class="font-cinzel text-3xl md:text-4xl font-bold leading-tight mb-2">
-                    WISUDA KE-50<br />UNIVERSITAS TEKNOKRAT
-                </h1>
+                <h3 class="text-yellow-500 tracking-[0.2em] text-xs uppercase font-semibold mb-2">The Graduation
+                    Ceremony</h3>
+                <h1 class="font-cinzel text-3xl md:text-4xl font-bold leading-tight mb-2">WISUDA KE-50<br />UNIVERSITAS
+                    TEKNOKRAT</h1>
                 <p class="text-gray-200 text-lg font-light italic">Angkatan 2026</p>
             </div>
 
-            <!-- 3. KARTU NAMA TAMU DINAMIS (LETAKKAN DI SINI) -->
+            <!-- Kartu Nama Tamu Dinamis -->
             <div
                 class="text-white p-6 border border-yellow-500/30 rounded-2xl bg-white/5 backdrop-blur-md max-w-md mx-auto shadow-2xl shadow-black/20">
                 <p id="guest-sapaan" class="text-gray-400 text-[10px] uppercase tracking-[0.2em] mb-2">Kepada Yth.</p>
                 <h2 id="guest-name"
                     class="font-cinzel text-2xl md:text-3xl font-bold text-yellow-500 leading-tight min-h-[3rem] flex items-center justify-center">
-                    Memuat...
-                </h2>
+                    Memuat...</h2>
                 <p id="guest-gelar" class="text-gray-300 text-sm mt-2 min-h-[1.5rem]"></p>
             </div>
-            <!-- END KARTU NAMA TAMU -->
 
-            <!-- Button -->
             <button onclick="openInvitation()"
-                class="mt-8 px-8 py-3 border-2 border-yellow-500 text-yellow-500 font-bold rounded-full hover:bg-yellow-500 hover:text-blue-900 transition-all duration-300 shadow-lg">
-                BUKA UNDANGAN
-            </button>
+                class="mt-8 px-8 py-3 border-2 border-yellow-500 text-yellow-500 font-bold rounded-full hover:bg-yellow-500 hover:text-blue-900 transition-all duration-300 shadow-lg">BUKA
+                UNDANGAN</button>
         </div>
     </div>
 
     <!-- MAIN CONTENT -->
     <main id="main-content" class="relative min-h-screen pb-20">
+
         <!-- Hero Section -->
         <section class="relative h-screen flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 z-0">
@@ -206,128 +225,95 @@
                     alt="Graduation Background" class="w-full h-full object-cover opacity-40" />
                 <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/50 to-gray-900"></div>
             </div>
-
             <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1200">
-                <p class="text-yellow-500 tracking-[0.2em] uppercase text-sm mb-4">
-                    Universitas Teknokrat Indonesia
-                </p>
-                <h1 class="font-cinzel text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
-                    WISUDA <br />
-                    <span class="text-gold-gradient">2026</span>
-                </h1>
+                <p class="text-yellow-500 tracking-[0.2em] uppercase text-sm mb-4">Universitas Teknokrat Indonesia</p>
+                <h1 class="font-cinzel text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">WISUDA <br /><span
+                        class="text-gold-gradient">2026</span></h1>
                 <div class="w-24 h-1 bg-yellow-600 mx-auto my-6"></div>
                 <p class="text-lg md:text-2xl font-light text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
-                    Merayakan Prestasi, Mengukir Sejarah<br>
-                    <span class="text-base md:text-lg text-gray-400 italic mt-2 block">"Excellence in Technology &
-                        Business"</span>
-                </p>
+                    Merayakan Prestasi, Mengukir Sejarah<br><span
+                        class="text-base md:text-lg text-gray-400 italic mt-2 block">"Excellence in Technology &
+                        Business"</span></p>
             </div>
-
-            <!-- Scroll Down Indicator -->
-            <div id="scroll-indicator"
-                class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-yellow-500 transition-opacity duration-300 opacity-100 cursor-pointer z-20"
-                onclick="document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' })">
-                <i class="fas fa-chevron-down text-2xl"></i>
-            </div>
+            <!-- ✅ Scroll ke Sambutan -->
+            <div class="scroll-btn"
+                onclick="document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' })"><i
+                    class="fas fa-chevron-down"></i></div>
         </section>
 
         <!-- SECTION SAMBUTAN -->
         <section id="sambutan" class="relative py-24 px-4 bg-[#0f172a] overflow-hidden">
-            <!-- Background Pattern Subtle -->
             <div class="absolute inset-0 opacity-[0.03]"
                 style="background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 30px 30px;">
             </div>
-
             <div class="relative z-10 max-w-3xl mx-auto text-center" data-aos="fade-up" data-aos-duration="1000">
-
-                <!-- LOGO UNIVERSITAS -->
                 <div class="flex justify-center mb-8">
                     <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
-                        alt="Logo Universitas Teknokrat"
+                        alt="Logo UT"
                         class="h-16 md:h-20 w-auto object-contain drop-shadow-lg opacity-90 hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                <!-- END LOGO -->
-
-                <!-- Ornamen Pembatas Atas -->
                 <div class="flex items-center justify-center gap-3 mb-8">
-                    <div class="h-[1px] w-12 bg-yellow-500/40"></div>
-                    <i class="fas fa-diamond text-yellow-500 text-[10px] rotate-45"></i>
+                    <div class="h-[1px] w-12 bg-yellow-500/40"></div><i
+                        class="fas fa-diamond text-yellow-500 text-[10px] rotate-45"></i>
                     <div class="h-[1px] w-12 bg-yellow-500/40"></div>
                 </div>
+                <p class="text-yellow-500 tracking-[0.2em] uppercase text-xs font-semibold mb-6">Kata Sambutan</p>
 
-                <!-- Judul Section -->
-                <p class="text-yellow-500 tracking-[0.2em] uppercase text-xs font-semibold mb-6">
-                    Kata Sambutan
-                </p>
-
-                <!-- Isi Sambutan -->
-                <!-- GANTI BAGIAN INI DI SECTION SAMBUTAN -->
+                <!-- Sapaan & Nama Dinamis -->
                 <h2 id="sambutan-sapaan"
-                    class="font-cinzel text-3xl md:text-4xl font-bold text-white mb-8 leading-snug">
-                    Yth. Bapak/Ibu/Saudara/i
-                </h2>
+                    class="font-cinzel text-3xl md:text-4xl font-bold text-white mb-8 leading-snug">Yth.
+                    Bapak/Ibu/Saudara/i</h2>
                 <p id="sambutan-nama" class="text-yellow-500 font-medium text-xl md:text-2xl mb-6 min-h-[2rem]"></p>
 
-                <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed mb-6">
-                    Dengan memohon rahmat dan ridho Tuhan Yang Maha Esa, kami bermaksud mengundang Anda untuk hadir
-                    dalam acara wisuda sarjana dan pascasarjana
-                    <span class="text-yellow-500 font-medium">Universitas Teknokrat Indonesia</span>.
-                </p>
-
+                <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed mb-6">Dengan memohon rahmat dan
+                    ridho Tuhan Yang Maha Esa, kami bermaksud mengundang Anda untuk hadir dalam acara wisuda sarjana dan
+                    pascasarjana <span class="text-yellow-500 font-medium">Universitas Teknokrat Indonesia</span>.</p>
                 <p class="text-gray-400 text-base md:text-lg font-light italic leading-relaxed max-w-2xl mx-auto">
                     "Keberhasilan para wisudawan hari ini adalah buah dari ketekunan belajar dan dukungan tak henti dari
-                    keluarga serta dosen pembimbing. Mari kita rayakan momen bersejarah ini bersama."
-                </p>
+                    keluarga serta dosen pembimbing. Mari kita rayakan momen bersejarah ini bersama."</p>
 
-                <!-- Tanda Tangan / Nama Pengirim -->
                 <div class="mt-12 pt-8 border-t border-white/10 inline-block">
                     <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">Rektor Universitas Teknokrat</p>
                     <p class="font-cinzel text-xl text-white font-bold">Dr. HM Nasrullah Yusuf, SE., MBA</p>
                 </div>
-
-                <!-- Ornamen Pembatas Bawah -->
                 <div class="flex items-center justify-center gap-3 mt-12">
-                    <div class="h-[1px] w-12 bg-yellow-500/40"></div>
-                    <i class="fas fa-diamond text-yellow-500 text-[10px] rotate-45"></i>
+                    <div class="h-[1px] w-12 bg-yellow-500/40"></div><i
+                        class="fas fa-diamond text-yellow-500 text-[10px] rotate-45"></i>
                     <div class="h-[1px] w-12 bg-yellow-500/40"></div>
                 </div>
             </div>
+            <!-- ✅ Scroll ke Detail Acara -->
+            <div class="scroll-btn"
+                onclick="document.getElementById('detail-acara').scrollIntoView({ behavior: 'smooth' })"><i
+                    class="fas fa-chevron-down"></i></div>
         </section>
 
-        <!-- SECTION DETAIL ACARA (Mobile Optimized) -->
+        <!-- SECTION DETAIL ACARA -->
         <section id="detail-acara"
             class="relative py-16 md:py-24 px-4 bg-[#0f172a] overflow-hidden border-t border-white/10">
-            <!-- Background Pattern Subtle -->
             <div class="absolute inset-0 opacity-[0.03]"
                 style="background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 30px 30px;">
             </div>
-
             <div class="relative z-10 max-w-5xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
-
-                <!-- Header Section -->
                 <div class="text-center mb-10 md:mb-16">
                     <p class="text-yellow-500 tracking-[0.2em] uppercase text-[10px] md:text-xs font-semibold mb-3">
                         Informasi Penting</p>
                     <h2 class="font-cinzel text-2xl md:text-4xl font-bold text-white mb-4">Detail Acara Wisuda</h2>
                     <div class="flex items-center justify-center gap-3">
-                        <div class="h-[1px] w-8 md:w-12 bg-yellow-500/40"></div>
-                        <i class="fas fa-diamond text-yellow-500 text-[8px] md:text-[10px] rotate-45"></i>
+                        <div class="h-[1px] w-8 md:w-12 bg-yellow-500/40"></div><i
+                            class="fas fa-diamond text-yellow-500 text-[8px] md:text-[10px] rotate-45"></i>
                         <div class="h-[1px] w-8 md:w-12 bg-yellow-500/40"></div>
                     </div>
                 </div>
-
-                <!-- Grid Cards Layout -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-
-                    <!-- Card: Tanggal -->
+                    <!-- Card Tanggal -->
                     <div
                         class="group relative bg-[#1e293b]/80 backdrop-blur-sm border border-white/5 p-4 md:p-6 hover:border-yellow-500/30 transition-all duration-300 hover:-translate-y-1">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex items-start gap-3 md:gap-4">
                             <div
                                 class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
-                                <i class="far fa-calendar-alt text-lg md:text-xl"></i>
-                            </div>
+                                <i class="far fa-calendar-alt text-lg md:text-xl"></i></div>
                             <div>
                                 <p class="text-gray-400 text-[10px] md:text-xs uppercase tracking-wider mb-1">Hari &
                                     Tanggal</p>
@@ -336,16 +322,14 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Card: Waktu -->
+                    <!-- Card Waktu -->
                     <div
                         class="group relative bg-[#1e293b]/80 backdrop-blur-sm border border-white/5 p-4 md:p-6 hover:border-yellow-500/30 transition-all duration-300 hover:-translate-y-1">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex items-start gap-3 md:gap-4">
                             <div
                                 class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
-                                <i class="far fa-clock text-lg md:text-xl"></i>
-                            </div>
+                                <i class="far fa-clock text-lg md:text-xl"></i></div>
                             <div>
                                 <p class="text-gray-400 text-[10px] md:text-xs uppercase tracking-wider mb-1">Waktu
                                     Pelaksanaan</p>
@@ -355,41 +339,37 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Card: Lokasi (Full Width) -->
+                    <!-- Card Lokasi -->
                     <div
                         class="md:col-span-2 group relative bg-[#1e293b]/80 backdrop-blur-sm border border-white/5 p-4 md:p-6 hover:border-yellow-500/30 transition-all duration-300">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex flex-col md:flex-row md:items-start gap-3 md:gap-4">
                             <div
                                 class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
-                                <i class="fas fa-map-marker-alt text-lg md:text-xl"></i>
-                            </div>
+                                <i class="fas fa-map-marker-alt text-lg md:text-xl"></i></div>
                             <div class="flex-1">
                                 <p class="text-gray-400 text-[10px] md:text-xs uppercase tracking-wider mb-1">Tempat
                                     Pelaksanaan</p>
                                 <h3 class="font-cinzel text-lg md:text-xl font-bold text-white mb-1 leading-tight">
                                     Auditorium Utama Universitas Teknokrat</h3>
                                 <p class="text-xs md:text-sm text-gray-300 mb-3 leading-relaxed">Jl. Zainal Abidin
-                                    Pagaralam No.1, Kota Bandar Lampung, Lampung</p>
-                                <a href="https://maps.google.com/?q=Universitas+Teknokrat+Bandar+Lampung"
+                                    Pagaralam No.1, Kota Bandar Lampung, Lampung</p><a
+                                    href="https://maps.google.com/?q=Universitas+Teknokrat+Bandar+Lampung"
                                     target="_blank"
-                                    class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-yellow-500/10 text-yellow-500 rounded-full text-xs md:text-sm font-medium transition-all duration-300 active:scale-95">
-                                    <i class="fas fa-external-link-alt text-[10px] md:text-xs"></i> Buka Google Maps
-                                </a>
+                                    class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-yellow-500/10 text-yellow-500 rounded-full text-xs md:text-sm font-medium transition-all duration-300 active:scale-95"><i
+                                        class="fas fa-external-link-alt text-[10px] md:text-xs"></i> Buka Google
+                                    Maps</a>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Card: Dress Code / Tema (Full Width) -->
+                    <!-- Card Dress Code -->
                     <div
                         class="md:col-span-2 group relative bg-[#1e293b]/80 backdrop-blur-sm border border-white/5 p-4 md:p-6 hover:border-yellow-500/30 transition-all duration-300">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex items-start gap-3 md:gap-4">
                             <div
                                 class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
-                                <i class="fas fa-tshirt text-lg md:text-xl"></i>
-                            </div>
+                                <i class="fas fa-tshirt text-lg md:text-xl"></i></div>
                             <div>
                                 <p class="text-gray-400 text-[10px] md:text-xs uppercase tracking-wider mb-1">Pakaian &
                                     Tema</p>
@@ -400,49 +380,40 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+            <!-- ✅ Scroll ke Rundown -->
+            <div class="scroll-btn" onclick="document.getElementById('rundown').scrollIntoView({ behavior: 'smooth' })">
+                <i class="fas fa-chevron-down"></i></div>
         </section>
 
         <!-- SECTION RUNDOWN ACARA -->
-        <section id="rundown" class="relative py-24 px-4 bg-[#0f172a] overflow-hidden">
-            <!-- Background Pattern Subtle (Konsisten) -->
+        <section id="rundown" class="relative py-24 px-4 bg-[#0f172a] overflow-hidden border-t border-white/10">
             <div class="absolute inset-0 opacity-[0.03]"
                 style="background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 30px 30px;">
             </div>
-
             <div class="max-w-4xl mx-auto relative z-10" data-aos="fade-up" data-aos-duration="1000">
-
-                <!-- Header Section -->
                 <div class="text-center mb-16">
                     <p class="text-yellow-500 tracking-[0.2em] uppercase text-xs font-semibold mb-4">Susunan Kegiatan
                         Resmi</p>
                     <h2 class="font-cinzel text-3xl md:text-4xl font-bold text-white mb-6">Rundown Wisuda Periode II
                     </h2>
                     <div class="flex items-center justify-center gap-3">
-                        <div class="h-[1px] w-12 bg-yellow-500/40"></div>
-                        <i class="fas fa-diamond text-yellow-500 text-[10px] rotate-45"></i>
+                        <div class="h-[1px] w-12 bg-yellow-500/40"></div><i
+                            class="fas fa-diamond text-yellow-500 text-[10px] rotate-45"></i>
                         <div class="h-[1px] w-12 bg-yellow-500/40"></div>
                     </div>
                 </div>
-
-                <!-- TIMELINE CONTAINER -->
                 <div class="relative">
-                    <!-- Garis Vertikal Tengah -->
                     <div
                         class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-yellow-500/20 transform md:-translate-x-1/2">
                     </div>
 
-                    <!-- SESI 1: PEMBUKAAN -->
+                    <!-- SESI 1 -->
                     <div class="mb-12">
-                        <div class="text-center md:text-left md:pl-0 mb-8 relative z-10">
-                            <span class="inline-block px-4 py-1 text-white text-xs font-bold uppercase tracking-widest">
-                                Sesi I : Pembukaan
-                            </span>
-                        </div>
-
-                        <!-- Item 1 -->
+                        <div class="text-center md:text-left md:pl-0 mb-8 relative z-10"><span
+                                class="inline-block px-4 py-1 text-white text-xs font-bold uppercase tracking-widest">Sesi
+                                I : Pembukaan</span></div>
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -450,16 +421,12 @@
                                     08.00 – 08.55</h3>
                                 <p class="text-sm text-gray-400 mt-1">Masuknya Senat Akademik & Tamu Kehormatan</p>
                             </div>
-                            <!-- Dot Timeline -->
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-500 z-10 group-hover:bg-yellow-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-door-open text-yellow-500/40 text-lg"></i>
-                            </div>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i
+                                    class="fas fa-door-open text-yellow-500/40 text-lg"></i></div>
                         </div>
-
-                        <!-- Item 2 -->
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -470,12 +437,9 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-500 z-10 group-hover:bg-yellow-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-microphone text-yellow-500/40 text-lg"></i>
-                            </div>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i
+                                    class="fas fa-microphone text-yellow-500/40 text-lg"></i></div>
                         </div>
-
-                        <!-- Item 3 (Gabungan Lagu & Hymne) -->
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -487,12 +451,9 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-500 z-10 group-hover:bg-yellow-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-music text-yellow-500/40 text-lg"></i>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i class="fas fa-music text-yellow-500/40 text-lg"></i>
                             </div>
                         </div>
-
-                        <!-- Item 4 & 5 (Tari & Doa) -->
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -503,12 +464,9 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-500 z-10 group-hover:bg-yellow-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-pray text-yellow-500/40 text-lg"></i>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i class="fas fa-pray text-yellow-500/40 text-lg"></i>
                             </div>
                         </div>
-
-                        <!-- Item 6 (Rapat Senat & Laporan Rektor) -->
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -519,12 +477,9 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-500 z-10 group-hover:bg-yellow-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-university text-yellow-500/40 text-lg"></i>
-                            </div>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i
+                                    class="fas fa-university text-yellow-500/40 text-lg"></i></div>
                         </div>
-
-                        <!-- Item 7, 8, 9 (Sambutan-sambutan) -->
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -536,12 +491,9 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-500 z-10 group-hover:bg-yellow-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-users text-yellow-500/40 text-lg"></i>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i class="fas fa-users text-yellow-500/40 text-lg"></i>
                             </div>
                         </div>
-
-                        <!-- Item 10 & 11 (Pengukuhan & Penghargaan) -->
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -553,12 +505,9 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-500 z-10 group-hover:bg-yellow-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-award text-yellow-500/40 text-lg"></i>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i class="fas fa-award text-yellow-500/40 text-lg"></i>
                             </div>
                         </div>
-
-                        <!-- Item 12 (Seni) -->
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -569,12 +518,9 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-500 z-10 group-hover:bg-yellow-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-theater-masks text-yellow-500/40 text-lg"></i>
-                            </div>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i
+                                    class="fas fa-theater-masks text-yellow-500/40 text-lg"></i></div>
                         </div>
-
-                        <!-- Item 13 (Tamu Pulang) -->
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -585,21 +531,16 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-500 z-10 group-hover:bg-yellow-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-walking text-yellow-500/40 text-lg"></i>
-                            </div>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i
+                                    class="fas fa-walking text-yellow-500/40 text-lg"></i></div>
                         </div>
                     </div>
 
-                    <!-- SESI 2: PENGUKUHAN -->
+                    <!-- SESI 2 -->
                     <div class="mb-12">
-                        <div class="text-center md:text-left md:pl-0 mb-8 relative z-10">
-                            <span class="inline-block px-4 py-1 text-white text-xs font-bold uppercase tracking-widest">
-                                Sesi II : Pengukuhan
-                            </span>
-                        </div>
-
-                        <!-- Item Sesi 2 (Gabungan) -->
+                        <div class="text-center md:text-left md:pl-0 mb-8 relative z-10"><span
+                                class="inline-block px-4 py-1 text-white text-xs font-bold uppercase tracking-widest">Sesi
+                                II : Pengukuhan</span></div>
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -614,21 +555,16 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-yellow-600 z-10 group-hover:bg-yellow-600 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-graduation-cap text-yellow-600/40 text-lg"></i>
-                            </div>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i
+                                    class="fas fa-graduation-cap text-yellow-600/40 text-lg"></i></div>
                         </div>
                     </div>
 
-                    <!-- SESI 3: PENUTUPAN -->
+                    <!-- SESI 3 -->
                     <div class="mb-12">
-                        <div class="text-center md:text-left md:pl-0 mb-8 relative z-10">
-                            <span class="inline-block px-4 py-1 text-white text-xs font-bold uppercase tracking-widest">
-                                Sesi III : Penutupan
-                            </span>
-                        </div>
-
-                        <!-- Item Sesi 3 -->
+                        <div class="text-center md:text-left md:pl-0 mb-8 relative z-10"><span
+                                class="inline-block px-4 py-1 text-white text-xs font-bold uppercase tracking-widest">Sesi
+                                III : Penutupan</span></div>
                         <div class="relative flex flex-col md:flex-row items-start md:items-center mb-8 group">
                             <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 mb-2 md:mb-0">
                                 <h3
@@ -639,76 +575,54 @@
                             <div
                                 class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-[#0f172a] border-2 border-gray-500 z-10 group-hover:bg-gray-500 transition-colors">
                             </div>
-                            <div class="md:w-1/2 md:pl-12 pl-12">
-                                <i class="fas fa-flag-checkered text-gray-500/40 text-lg"></i>
-                            </div>
+                            <div class="md:w-1/2 md:pl-12 pl-12"><i
+                                    class="fas fa-flag-checkered text-gray-500/40 text-lg"></i></div>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- CATATAN PENTING (Dari Gambar) -->
                 <div class="mt-12 p-6 bg-[#1e293b]/80 backdrop-blur-sm border-l-4 border-yellow-500 text-left">
                     <h4 class="text-yellow-500 font-bold text-sm uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <i class="fas fa-exclamation-circle"></i> Catatan Penting
-                    </h4>
-                    <p class="text-gray-300 text-sm leading-relaxed">
-                        Pengurus Yayasan Pendidikan Teknokrat, Kepala LLDIKTI Wilayah II, dan PJ Gubernur Lampung
-                        <span class="text-white font-medium">hanya menghadiri acara Sesi I : Pembukaan</span>.
-                    </p>
+                        <i class="fas fa-exclamation-circle"></i> Catatan Penting</h4>
+                    <p class="text-gray-300 text-sm leading-relaxed">Pengurus Yayasan Pendidikan Teknokrat, Kepala
+                        LLDIKTI Wilayah II, dan PJ Gubernur Lampung <span class="text-white font-medium">hanya
+                            menghadiri acara Sesi I : Pembukaan</span>.</p>
                 </div>
-
             </div>
         </section>
 
         <!-- FOOTER MINIMALIS -->
         <footer class="relative bg-[#0b1120] py-12 border-t border-yellow-500/10">
-            <!-- Pattern Subtle (Opsional, bisa dihapus jika ingin benar-benar polos) -->
             <div class="absolute inset-0 opacity-[0.02]"
                 style="background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 24px 24px;">
             </div>
-
             <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
-
-                <!-- Logo & Nama Universitas -->
                 <div class="flex flex-col items-center mb-8">
                     <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
-                        alt="Logo Universitas Teknokrat" class="h-14 w-auto object-contain opacity-90 mb-4" />
-                    <h3 class="font-cinzel text-lg md:text-xl font-bold text-white tracking-wide">
-                        UNIVERSITAS TEKNOKRAT
+                        alt="Logo UT" class="h-14 w-auto object-contain opacity-90 mb-4" />
+                    <h3 class="font-cinzel text-lg md:text-xl font-bold text-white tracking-wide">UNIVERSITAS TEKNOKRAT
                     </h3>
-                    <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">
-                        Excellence in Technology & Business
+                    <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">Excellence in Technology & Business
                     </p>
                 </div>
-
-                <!-- Social Icons (Centered & Clean) -->
                 <div class="flex justify-center gap-4 mb-8">
                     <a href="https://www.instagram.com/teknokrat_official/" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all duration-300 shadow-lg hover:-translate-y-1">
-                        <i class="fab fa-instagram text-lg"></i>
-                    </a>
+                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                            class="fab fa-instagram text-lg"></i></a>
                     <a href="https://www.facebook.com/kuliahditeknokrat/" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 shadow-lg hover:-translate-y-1">
-                        <i class="fab fa-facebook-f text-lg"></i>
-                    </a>
+                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                            class="fab fa-facebook-f text-lg"></i></a>
                     <a href="https://www.youtube.com/@UNIVERSITASTEKNOKRATINDONESIA" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 shadow-lg hover:-translate-y-1">
-                        <i class="fab fa-youtube text-lg"></i>
-                    </a>
+                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                            class="fab fa-youtube text-lg"></i></a>
                     <a href="https://teknokrat.ac.id" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-lg hover:-translate-y-1">
-                        <i class="fas fa-globe text-lg"></i>
-                    </a>
+                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                            class="fas fa-globe text-lg"></i></a>
                 </div>
-
-                <!-- Copyright Simple -->
                 <div class="border-t border-white/5 pt-6">
-                    <p class="text-gray-600 text-xs">
-                        &copy; 2026 Universitas Teknokrat Indonesia. All Rights Reserved.
+                    <p class="text-gray-600 text-xs">&copy; 2026 Universitas Teknokrat Indonesia. All Rights Reserved.
                     </p>
                 </div>
-
             </div>
         </footer>
     </main>
@@ -718,35 +632,26 @@
         class="fixed inset-0 z-[200] bg-[#0f172a] flex flex-col items-center justify-center transition-opacity duration-500">
         <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
             alt="Loading Logo" class="h-20 w-auto animate-pulse mb-4">
-        <p class="text-gold text-xs uppercase tracking-[0.3em]">Menyiapkan undangan khusus...</p>
+        <p class="text-yellow-500 text-xs uppercase tracking-[0.3em]">Menyiapkan undangan khusus...</p>
     </div>
 
     <script>
-        // Initialize AOS Animation
-        AOS.init({
-            once: true,
-            offset: 100,
-            duration: 1000,
-        });
+        // Initialize AOS
+        AOS.init({ once: true, offset: 100, duration: 1000 });
 
-        // Logic Scroll Indicator
-        const scrollIndicator = document.getElementById('scroll-indicator');
-        const heroSection = document.querySelector('.relative.h-screen'); // Selector section hero Anda
+        // ✅ LOGIC SCROLL INDICATOR UNIVERSAL (Tanpa ID Duplikat)
+        let scrollTimeout;
+        const scrollButtons = document.querySelectorAll('.scroll-btn');
 
         window.addEventListener('scroll', () => {
-            if (!scrollIndicator || !heroSection) return;
+            // Sembunyikan semua tombol saat user sedang scrolling
+            scrollButtons.forEach(btn => btn.style.opacity = '0');
 
-            const heroHeight = heroSection.offsetHeight;
-            const scrollY = window.scrollY;
-
-            // Sembunyikan indikator jika sudah scroll melewati 30% tinggi hero section
-            if (scrollY > heroHeight * 0.3) {
-                scrollIndicator.classList.add('opacity-0', 'pointer-events-none');
-                scrollIndicator.classList.remove('opacity-100');
-            } else {
-                scrollIndicator.classList.remove('opacity-0', 'pointer-events-none');
-                scrollIndicator.classList.add('opacity-100');
-            }
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                // Munculkan kembali setelah berhenti scroll 600ms
+                scrollButtons.forEach(btn => btn.style.opacity = '0.7');
+            }, 600);
         });
 
         // Audio Logic
@@ -757,21 +662,12 @@
 
         function openInvitation() {
             const overlay = document.getElementById("opening-overlay");
-
-            // Play Audio
             audio.volume = 0.5;
-            audio
-                .play()
-                .then(() => {
-                    isPlaying = true;
-                    musicControl.classList.remove("hidden");
-                })
-                .catch((error) => {
-                    console.log("Autoplay prevented:", error);
-                    musicControl.classList.remove("hidden");
-                });
+            audio.play().then(() => {
+                isPlaying = true;
+                musicControl.classList.remove("hidden");
+            }).catch((error) => { console.log("Autoplay prevented:", error); musicControl.classList.remove("hidden"); });
 
-            // Hide Overlay
             overlay.classList.add("hidden-overlay");
             document.body.style.overflowY = "auto";
         }
@@ -781,9 +677,7 @@
                 audio.pause();
                 musicIcon.classList.remove("fa-pause");
                 musicIcon.classList.add("fa-play");
-                musicControl
-                    .querySelector("button")
-                    .classList.remove("music-btn-pulse");
+                musicControl.querySelector("button").classList.remove("music-btn-pulse");
             } else {
                 audio.play();
                 musicIcon.classList.remove("fa-play");
@@ -793,6 +687,8 @@
             isPlaying = !isPlaying;
         }
     </script>
+
+    <!-- Script API Tamu Dinamis -->
     <script src="api-tamu.js"></script>
 </body>
 
