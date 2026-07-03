@@ -155,7 +155,7 @@
         /* Tombol Navigasi Bawah */
         .nav-btn-next {
             position: absolute;
-            bottom: 75px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 20;
@@ -207,7 +207,7 @@
     </style>
 </head>
 
-<body class="bg-[#0f172a] antialiased">
+<body class="bg-[#4a0e0e] antialiased">
     <!-- Audio Element -->
     <audio id="bg-music" loop>
         <source src="backsound.mp3" type="audio/mp3" />
@@ -226,7 +226,7 @@
         class="fixed inset-0 z-[100] flex flex-col items-center justify-center text-center px-4 transition-transform duration-700 ease-in-out bg-cover bg-center"
         style="
         background-image:
-          linear-gradient(rgba(26, 35, 126, 0.9), rgba(26, 35, 126, 0.9)),
+          linear-gradient(rgba(74, 14, 14, 0.85), rgba(74, 14, 14, 0.85)),
           url(&quot;https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1000&q=80&quot;);
       ">
         <div class="max-w-md mx-auto space-y-6" data-aos="zoom-in" data-aos-duration="1000">
@@ -258,7 +258,7 @@
             </div>
 
             <button onclick="openInvitation()"
-                class="mt-8 px-8 py-3 border-2 border-yellow-500 text-yellow-500 font-bold rounded-full hover:bg-yellow-500 hover:text-blue-900 transition-all duration-300 shadow-lg">
+                class="mt-8 px-8 py-3 border-2 border-yellow-500 text-yellow-500 font-bold rounded-full hover:bg-yellow-500 hover:text-red-900 transition-all duration-300 shadow-lg">
                 BUKA UNDANGAN
             </button>
         </div>
@@ -270,9 +270,13 @@
         <div class="section-step active" id="step-hero">
             <div class="absolute inset-0 z-0">
                 <img src="https://www.prasetiyamulya.ac.id/wp-content/uploads/2023/11/Fakta-Menarik-Momen-Wisuda-Menjadi-Sebuah-Langkah-Awal-Membangun-Karir-Profesional.jpg"
-                    alt="Graduation Background" class="w-full h-full object-cover opacity-40" />
-                <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/50 to-gray-900"></div>
+                    alt="Graduation Background" class="w-full h-full object-cover opacity-70" />
+                <div
+                    class="absolute inset-0 bg-gradient-to-b from-[rgba(74,14,14,0.6)] via-[rgba(74,14,14,0.4)] to-[rgba(74,14,14,0.7)]">
+                </div>
             </div>
+
+
             <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1200">
                 <p class="text-yellow-500 tracking-[0.2em] uppercase text-sm mb-4">
                     Universitas Teknokrat Indonesia
@@ -351,8 +355,8 @@
                 </p>
 
                 <div class="my-4 sm:my-6 flex justify-center">
-                        <img src="ttd.png" alt="Tanda Tangan Rektor"
-                            class="h-12 sm:h-14 w-auto object-contain filter brightness-0 invert opacity-90" />
+                    <img src="ttd.png" alt="Tanda Tangan Rektor"
+                        class="h-12 sm:h-14 w-auto object-contain filter brightness-0 invert opacity-90" />
                 </div>
 
                 <!-- Tanda Tangan Rektor -->
@@ -402,16 +406,16 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-[90%] mx-auto">
                     <!-- Card Tanggal -->
                     <div
-                        class="group relative bg-[#1e293b]/80 backdrop-blur-sm border border-white/5 p-3 sm:p-4 md:p-6 rounded-lg hover:border-yellow-500/30 transition-all duration-300 hover:-translate-y-1">
-                        <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
+                        class="group relative bg-[#8b2c2c]/70 backdrop-blur-sm border border-yellow-600 p-3 sm:p-4 md:p-6 rounded-lg hover: transition-all duration-300 hover:-translate-y-1">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-yellow-600 rounded-t-xl"></div>
                         <div class="flex items-start gap-2 sm:gap-3 md:gap-4">
                             <div
-                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
+                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-600/10 flex items-center justify-center text-yellow-600 shrink-0">
                                 <i class="far fa-calendar-alt text-base sm:text-lg md:text-xl"></i>
                             </div>
                             <div>
                                 <p
-                                    class="text-gray-400 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
+                                    class="text-gray-300 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
                                     Hari & Tanggal
                                 </p>
                                 <h3
@@ -422,9 +426,10 @@
                         </div>
                     </div>
 
+
                     <!-- Card Waktu -->
                     <div
-                        class="group relative bg-[#1e293b]/80 backdrop-blur-sm border border-white/5 p-3 sm:p-4 md:p-6 rounded-lg hover:border-yellow-500/30 transition-all duration-300 hover:-translate-y-1">
+                        class="group relative bg-[#8b2c2c]/70 backdrop-blur-sm border border-yellow-600 p-3 sm:p-4 md:p-6 rounded-lg hover: transition-all duration-300 hover:-translate-y-1">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex items-start gap-2 sm:gap-3 md:gap-4">
                             <div
@@ -433,14 +438,14 @@
                             </div>
                             <div>
                                 <p
-                                    class="text-gray-400 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
+                                    class="text-gray-300 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
                                     Waktu Pelaksanaan
                                 </p>
                                 <h3
                                     class="font-cinzel text-base sm:text-lg md:text-xl font-bold text-white mb-1 leading-tight">
                                     08:00 WIB - Selesai
                                 </h3>
-                                <p class="text-[9px] sm:text-[10px] md:text-xs text-gray-500 mt-1">
+                                <p class="text-[9px] sm:text-[10px] md:text-xs text-gray-300 mt-1">
                                     Registrasi mulai 07:00 WIB
                                 </p>
                             </div>
@@ -449,7 +454,7 @@
 
                     <!-- Card Lokasi -->
                     <div
-                        class="md:col-span-2 group relative bg-[#1e293b]/80 backdrop-blur-sm border border-white/5 p-3 sm:p-4 md:p-6 rounded-lg hover:border-yellow-500/30 transition-all duration-300">
+                        class="md:col-span-2 group relative bg-[#8b2c2c]/70 backdrop-blur-sm border border-yellow-600 p-3 sm:p-4 md:p-6 rounded-lg hover: transition-all duration-300">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex flex-col md:flex-row md:items-start gap-2 sm:gap-3 md:gap-4">
                             <div
@@ -458,7 +463,7 @@
                             </div>
                             <div class="flex-1">
                                 <p
-                                    class="text-gray-400 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
+                                    class="text-gray-300 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
                                     Tempat Pelaksanaan
                                 </p>
                                 <h3
@@ -481,7 +486,7 @@
 
                     <!-- Card Dress Code -->
                     <div
-                        class="md:col-span-2 group relative bg-[#1e293b]/80 backdrop-blur-sm border border-white/5 p-3 sm:p-4 md:p-6 mb-2 rounded-lg hover:border-yellow-500/30 transition-all duration-300">
+                        class="md:col-span-2 group relative bg-[#8b2c2c]/70 backdrop-blur-sm border border-yellow-600 p-3 sm:p-4 md:p-6 mb-2 rounded-lg hover: transition-all duration-300">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex items-start gap-2 sm:gap-3 md:gap-4">
                             <div
@@ -490,14 +495,14 @@
                             </div>
                             <div>
                                 <p
-                                    class="text-gray-400 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
+                                    class="text-gray-300 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
                                     Pakaian & Tema
                                 </p>
                                 <h3
                                     class="font-cinzel text-base sm:text-lg md:text-xl font-bold text-white mb-1 leading-tight">
                                     Jas Almamater / Formal
                                 </h3>
-                                <p class="text-[10px] sm:text-xs md:text-sm text-gray-400 italic">
+                                <p class="text-[10px] sm:text-xs md:text-sm text-gray-300 italic">
                                     "Inovasi Tanpa Batas untuk Masa Depan Gemilang"
                                 </p>
                             </div>
@@ -570,7 +575,7 @@
                 </div>
 
                 <!-- Catatan Penting -->
-                <div class="mt-6 p-3 bg-[#1e293b]/80 backdrop-blur-sm border-l-4 border-yellow-500 rounded-r-md">
+                <div class="mt-6 p-3 bg-[#8b2c2c]/70 backdrop-blur-sm border-l-4 border-yellow-500 rounded-r-md">
                     <h4 class="text-yellow-500 font-bold text-xs uppercase mb-1 flex items-center gap-1">
                         <i class="fas fa-exclamation-circle"></i> Catatan Penting
                     </h4>
@@ -601,33 +606,33 @@
                     <h3 class="font-cinzel text-lg md:text-xl font-bold text-white tracking-wide">
                         UNIVERSITAS TEKNOKRAT
                     </h3>
-                    <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">
+                    <p class="text-gray-300 text-xs mt-1 uppercase tracking-widest">
                         Excellence in Technology & Business
                     </p>
                 </div>
                 <div class="flex justify-center gap-4 mb-8">
                     <a href="https://www.instagram.com/teknokrat_official/" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/70 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
                             class="fab fa-instagram text-lg"></i></a>
                     <a href="https://www.facebook.com/kuliahditeknokrat/" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/70 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
                             class="fab fa-facebook-f text-lg"></i></a>
                     <a href="https://www.youtube.com/@UNIVERSITASTEKNOKRATINDONESIA" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/70 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
                             class="fab fa-youtube text-lg"></i></a>
                     <a href="https://teknokrat.ac.id" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#1e293b] border border-white/5 flex items-center justify-center text-gray-400 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/70 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
                             class="fas fa-globe text-lg"></i></a>
                 </div>
                 <div class="border-t border-white/5 pt-6 mb-8">
-                    <p class="text-gray-600 text-xs">
+                    <p class="text-gray-400 text-xs">
                         &copy; 2026 Universitas Teknokrat Indonesia. All Rights Reserved.
                     </p>
                 </div>
 
                 <!-- Tombol Kembali ke Atas -->
                 <button onclick="goToSection('step-hero')"
-                    class="px-6 py-2 border border-yellow-500 text-yellow-500 rounded-full hover:bg-yellow-500 hover:text-blue-900 transition-all text-sm font-bold">
+                    class="px-6 py-2 border border-yellow-500 text-yellow-500 rounded-full hover:bg-yellow-500 hover:text-red-900 transition-all text-sm font-bold">
                     <i class="fas fa-arrow-up mr-2"></i> Ulangi Undangan
                 </button>
             </div>
@@ -636,7 +641,7 @@
 
     <!-- LOADING SCREEN -->
     <div id="loading-screen"
-        class="fixed inset-0 z-[200] bg-[#0f172a] flex flex-col items-center justify-center transition-opacity duration-500">
+        class="fixed inset-0 z-[200] bg-[#4a0e0e] flex flex-col items-center justify-center transition-opacity duration-500">
         <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
             alt="Loading Logo" class="h-20 w-auto animate-pulse mb-4" />
         <p class="text-yellow-500 text-xs uppercase tracking-[0.3em]">
