@@ -1,7 +1,7 @@
 // ==========================================
 // KONFIGURASI API
 // ==========================================
-const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzkjpzYtYwY0BgYlUssFaXgK33OFsHpLn_usbm8dC3J2VS1cUT3nn33W6VStVobRFLK8w/exec';
+const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzkjpzYtYwY0BgYlUssFaXgK33OFsHpLn_usbm8dC3J2VS1cUT3nn33W6VStVobRFLK8w/exec'; // Ganti dengan URL Google Apps Script Anda
 
 // ==========================================
 // LOGIC LOAD DATA TAMU DINAMIS
