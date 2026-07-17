@@ -1,7 +1,7 @@
 // ==========================================
 // KONFIGURASI API
 // ==========================================
-const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzkjpzYtYwY0BgYlUssFaXgK33OFsHpLn_usbm8dC3J2VS1cUT3nn33W6VStVobRFLK8w/exec'; // Ganti dengan URL Google Apps Script Anda
+const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzkjpzYtYwY0BgYlUssFaXgK33OFsHpLn_usbm8dC3J2VS1cUT3nn33W6VStVobRFLK8w/exec';
 
 // ==========================================
 // LOGIC LOAD DATA TAMU DINAMIS
@@ -58,8 +58,8 @@ function updateUI(data) {
     const nameEl = document.getElementById('guest-name');
 
     // 1. Gabungkan Nama & Gelar menjadi satu string horizontal
-    const fullDisplayName = data.gelar
-        ? `${data.nama_lengkap}, ${data.gelar}`
+    const fullDisplayName = data.gelar 
+        ? `${data.nama_lengkap}, ${data.gelar}` 
         : data.nama_lengkap;
 
     // 2. Masukkan ke elemen nama (Warna kuning otomatis mengikuti class CSS text-yellow-500)
@@ -73,24 +73,23 @@ function updateUI(data) {
     nameEl.classList.remove('text-2xl', 'md:text-3xl', 'text-lg', 'sm:text-xl', 'md:text-2xl');
 
     if (fullDisplayName.length > 45) {
-        // Nama SANGAT PANJANG: Font lebih kecil
+        // Nama SANGAT PANJANG: Gunakan font paling kecil
         nameEl.classList.add('text-lg', 'sm:text-xl', 'md:text-2xl');
     } else if (fullDisplayName.length > 30) {
-        // Nama SEDANG: Font menengah
+        // Nama SEDANG: Gunakan font menengah
         nameEl.classList.add('text-xl', 'sm:text-2xl', 'md:text-3xl');
     } else {
-        // Nama PENDEK: Font standar besar
+        // Nama PENDEK: Gunakan font standar (besar)
         nameEl.classList.add('text-2xl', 'md:text-3xl');
     }
 
-    // 5. Personalisasi Sapaan Berdasarkan Hubungan/Jenis Kelamin
-    const rel = data.hubungan?.toLowerCase() || '';
+    // 5. Personalisasi Sapaan BERDASARKAN GENDER SAJA (Sesuai Permintaan)
     const gender = data.jenis_kelamin?.toUpperCase().trim();
+    
+    let sapaanCover = "Yth. Saudara/i"; // Default jika gender kosong/tidak valid
+    let sapaanSambutan = "Yth. Bapak/Ibu/Saudara/i"; // Default
 
-    let sapaanCover = "Yth. Saudara/i";
-    let sapaanSambutan = "Yth. Bapak/Ibu/Saudara/i";
-
-    // Prioritas 1: Jenis Kelamin (Jika ada datanya)
+    // Logika Mutlak Berdasarkan Gender
     if (gender === 'L') {
         sapaanCover = "Yth. Bapak";
         sapaanSambutan = "Yth. Bapak";
@@ -98,21 +97,11 @@ function updateUI(data) {
         sapaanCover = "Yth. Ibu";
         sapaanSambutan = "Yth. Ibu";
     }
-    // Prioritas 2: Fallback ke Kata Kunci Hubungan
-    else {
-        if (rel.includes('orang tua') || rel.includes('ayah') || rel.includes('ibu')) {
-            sapaanCover = "Yth. Bapak/Ibu";
-            sapaanSambutan = "Yth. Bapak/Ibu";
-        } else if (rel.includes('dosen') || rel.includes('rektor') || rel.includes('kaprodi')) {
-            sapaanCover = "Yth. Bapak/Ibu Dosen";
-            sapaanSambutan = "Yth. Bapak/Ibu Dosen";
-        }
-    }
 
     // 6. Apply Sapaan ke Elemen HTML
     document.getElementById('guest-sapaan').innerText = sapaanCover;
     document.getElementById('sambutan-sapaan').innerText = sapaanSambutan;
-
+    
     // Update nama di section sambutan juga (format sama: Nama, Gelar)
     document.getElementById('sambutan-nama').innerText = fullDisplayName;
 }
