@@ -36,7 +36,6 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            /* Kunci scroll saat loading & step mode */
             background-color: #0f172a;
         }
 
@@ -67,12 +66,7 @@
 
         /* Gold Gradient Text */
         .text-gold-gradient {
-            background: linear-gradient(to right,
-                    #bf953f,
-                    #fcf6ba,
-                    #b38728,
-                    #fbf5b7,
-                    #aa771c);
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -80,9 +74,7 @@
 
         /* Overlay for Opening */
         #opening-overlay {
-            transition:
-                transform 1s ease-in-out,
-                opacity 1s ease-in-out;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
         }
 
         .hidden-overlay {
@@ -115,6 +107,24 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* --- BACKGROUND IMAGE UTILITY CLASS --- */
+        .bg-section-image {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Overlay Merah Maroon Konsisten */
+        .bg-maroon-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(to bottom, rgba(74, 14, 14, 0.85) 0%, rgba(74, 14, 14, 0.7) 50%, rgba(74, 14, 14, 0.9) 100%);
+        }
+
         /* --- STEP-BY-STEP SCROLL SYSTEM --- */
         #main-content {
             position: relative;
@@ -139,9 +149,7 @@
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
             overflow-y: auto;
-            /* Izinkan scroll internal jika konten panjang */
             padding-bottom: 80px;
-            /* Ruang untuk tombol nav */
         }
 
         .section-step.active {
@@ -224,40 +232,27 @@
     <!-- OPENING OVERLAY (Cover) -->
     <div id="opening-overlay"
         class="fixed inset-0 z-[100] flex flex-col items-center justify-center text-center px-4 transition-transform duration-700 ease-in-out bg-cover bg-center"
-        style="
-        background-image:
-          linear-gradient(rgba(74, 14, 14, 0.85), rgba(74, 14, 14, 0.85)),
-          url(&quot; https://lifestyle.teknokrat.ac.id/img/ICT.jpg&quot;);
-      ">
+        style="background-image: linear-gradient(rgba(74, 14, 14, 0.85), rgba(74, 14, 14, 0.85)), url('https://lifestyle.teknokrat.ac.id/img/ICT.jpg');">
         <div class="max-w-md mx-auto space-y-6" data-aos="zoom-in" data-aos-duration="1000">
             <div class="flex justify-center mb-4">
                 <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
                     alt="Logo UT" class="h-28 w-auto object-contain drop-shadow-lg" />
             </div>
             <div class="text-white">
-                <!-- MODIFIKASI: Menggunakan font-script (Great Vibes) dan ukuran 40px -->
-                <h3 class="font-script text-yellow-500 text-[40px] tracking-wide mb-1">
-                    Wisuda 2026
-                </h3>
-                <h1 class="font-cinzel text-3xl md:text-4xl font-bold leading-tight mb-2">
-                    <br />UNIVERSITAS TEKNOKRAT INDONESIA
-                </h1>
+                <h3 class="font-script text-yellow-500 text-[40px] tracking-wide mb-1">Wisuda 2026</h3>
+                <h1 class="font-cinzel text-3xl md:text-4xl font-bold leading-tight mb-2"><br />UNIVERSITAS TEKNOKRAT
+                    INDONESIA</h1>
                 <p class="text-gray-200 text-lg font-light italic">Periode I</p>
             </div>
-
-            <!-- Kartu Nama Tamu Dinamis -->
             <div
                 class="text-white p-6 border border-yellow-500/30 rounded-2xl bg-white/5 backdrop-blur-md max-w-md mx-auto shadow-2xl shadow-black/20">
-                <p id="guest-sapaan" class="text-gray-400 text-[10px] uppercase tracking-[0.2em] mb-2">
-                    Kepada Yth.
-                </p>
+                <p id="guest-sapaan" class="text-gray-400 text-[10px] uppercase tracking-[0.2em] mb-2">Kepada Yth.</p>
                 <h2 id="guest-name"
                     class="font-cinzel text-2xl md:text-3xl font-bold text-yellow-500 leading-snug min-h-[3rem] flex items-center justify-center px-4 transition-all duration-300">
                     Memuat...
                 </h2>
                 <p id="guest-gelar" class="hidden"></p>
             </div>
-
             <button onclick="openInvitation()"
                 class="mt-8 px-8 py-3 border-2 border-yellow-500 text-yellow-500 font-bold rounded-full hover:bg-yellow-500 hover:text-red-900 transition-all duration-300 shadow-lg">
                 BUKA UNDANGAN
@@ -267,7 +262,8 @@
 
     <!-- MAIN CONTENT (STEP-BY-STEP CONTAINER) -->
     <main id="main-content">
-        <!-- SECTION 1: HERO -->
+
+        <!-- SECTION 1: HERO (Background Image Kampus Utama) -->
         <div class="section-step active" id="step-hero">
             <div class="absolute inset-0 z-0">
                 <img src=" https://lifestyle.teknokrat.ac.id/img/wisuda2.jpg"
@@ -277,14 +273,10 @@
                 </div>
             </div>
 
-
             <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1200">
-                <p class="text-yellow-500 tracking-[0.2em] uppercase text-sm mb-4">
-                    Universitas Teknokrat Indonesia
-                </p>
-                <h1 class="font-cinzel text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
-                    WISUDA <br /><span class="text-gold-gradient">2026</span>
-                </h1>
+                <p class="text-yellow-500 tracking-[0.2em] uppercase text-sm mb-4">Universitas Teknokrat Indonesia</p>
+                <h1 class="font-cinzel text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">WISUDA <br /><span
+                        class="text-gold-gradient">2026</span></h1>
                 <div class="w-24 h-1 bg-yellow-600 mx-auto my-6"></div>
                 <p class="text-lg md:text-2xl font-light text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
                     Merayakan Prestasi, Mengukir Sejarah<br /><span
@@ -292,105 +284,84 @@
                         Business"</span>
                 </p>
             </div>
-            <div class="nav-btn-next" onclick="goToSection('step-sambutan')">
-                <i class="fas fa-chevron-down"></i>
-            </div>
+            <div class="nav-btn-next" onclick="goToSection('step-sambutan')"><i class="fas fa-chevron-down"></i></div>
         </div>
 
-        <!-- SECTION 2: SAMBUTAN -->
+        <!-- SECTION 2: SAMBUTAN (Background Image Gedung/Auditorium) -->
         <div class="section-step" id="step-sambutan">
-            <!-- Background Pattern -->
-            <div class="absolute inset-0 opacity-[0.03]" style="
-            background-image: radial-gradient(#d4af37 1px, transparent 1px);
-            background-size: 30px 30px;
-          "></div>
+            <!-- GANTI URL DI BAWAH INI DENGAN FOTO GEDUNG/AUDITORIUM TEKNOBRAT -->
+            <div class="absolute inset-0 z-0">
+                <img src=" https://lifestyle.teknokrat.ac.id/img/wisuda2.jpg"
+                    alt="Graduation Background" class="w-full h-full object-cover opacity-30" />
+                <div
+                    class="absolute inset-0 bg-gradient-to-b from-[rgba(74,14,14,0.6)] via-[rgba(74,14,14,0.4)] to-[rgba(74,14,14,0.7)]">
+                </div>
+            </div>
 
             <div class="relative z-10 w-full max-w-[95%] sm:max-w-[85%] mx-auto text-center flex flex-col justify-center h-full py-6 sm:py-10 md:py-12 pb-10 sm:pb-16 md:pb-24 mt-4 sm:mt-8 md:mt-12 mb-6 sm:mb-10 md:mb-12"
                 data-aos="fade-up">
-                <!-- Logo -->
                 <div class="flex justify-center mb-4 sm:mb-6 mt-6 sm:mt-12">
                     <div
                         class="relative p-2 sm:p-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-lg">
                         <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
-                            alt="Logo Teknokrat" class="h-10 sm:h-14 w-auto object-contain drop-shadow-md" />
+                            alt="Logo Teknokrat"
+                            class="h-10 sm:h-14 w-auto object-contain drop-shadow-md" />
                     </div>
                 </div>
-
-                <!-- Ornamen Diamond -->
                 <div class="flex items-center justify-center gap-2 mb-4 sm:mb-5">
                     <div class="h-[1px] w-6 sm:w-8 bg-yellow-500/40"></div>
                     <i class="fas fa-diamond text-yellow-500 text-[7px] sm:text-[8px] rotate-45"></i>
                     <div class="h-[1px] w-6 sm:w-8 bg-yellow-500/40"></div>
                 </div>
-
-                <!-- Label Section -->
                 <p class="text-yellow-500 tracking-[0.15em] uppercase text-[9px] sm:text-[10px] font-bold mb-4 sm:mb-6">
-                    Kata Sambutan
-                </p>
+                    Kata Sambutan</p>
 
-                <!-- Sapaan -->
                 <h2 id="sambutan-sapaan"
-                    class="font-cinzel text-xl sm:text-2xl md:text-4xl font-bold text-white mb-2 leading-tight">
-                    Yth. Bapak/Ibu/Saudara/i
-                </h2>
-
-                <!-- Nama Tamu -->
+                    class="font-cinzel text-xl sm:text-2xl md:text-4xl font-bold text-white mb-2 leading-tight">Yth.
+                    Bapak/Ibu/Saudara/i</h2>
                 <p id="sambutan-nama"
                     class="text-yellow-500 font-bold text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 min-h-[1.5rem] sm:min-h-[2rem] drop-shadow-md">
                 </p>
 
-                <!-- Teks Undangan -->
                 <p class="text-gray-200 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-4 sm:mb-4 px-2">
                     Sehubungan dengan Wisuda Universitas Teknokrat Indonesia Periode I Tahun 2026 dengan tema “Mencetak
                     Lulusan Profesional, Kompeten, dan Berdaya Saing Menuju Indonesia Emas”, dengan ini kami mohon
                     kiranya Ibu berkenan menghadiri acara tersebut untuk memberikan sambutan.<br>
                     <span class="text-yellow-500 font-semibold">Universitas Teknokrat Indonesia</span>.
                 </p>
-
-                <!-- Quote -->
                 <p
                     class="text-gray-400 text-xs sm:text-sm md:text-base font-light italic leading-relaxed mb-6 sm:mb-10 px-2">
-                    "Keberhasilan para wisudawan hari ini adalah buah dari ketekunan
-                    belajar dan dukungan tak henti dari keluarga serta dosen pembimbing.
-                    Mari kita rayakan momen bersejarah ini bersama."
+                    "Keberhasilan para wisudawan hari ini adalah buah dari ketekunan belajar dan dukungan tak henti dari
+                    keluarga serta dosen pembimbing. Mari kita rayakan momen bersejarah ini bersama."
                 </p>
 
-                <!-- Tanda Tangan Rektor -->
                 <div class="mt-auto pt-4 sm:pt-6 border-t border-white/10 w-full max-w-xs mx-auto">
                     <p
                         class="text-[8px] sm:text-[9px] md:text-[10px] text-gray-500 uppercase tracking-[0.1em] sm:tracking-[0.15em] mb-1 sm:mb-2">
-                        Rektor Universitas Teknokrat
-                    </p>
+                        Rektor Universitas Teknokrat</p>
+                    <p class="font-cinzel text-sm sm:text-base md:text-lg text-white font-bold leading-snug">Dr. HM
+                        Nasrullah Yusuf, SE., MBA</p>
+                </div>
+            </div>
+            <div class="nav-btn-next" onclick="goToSection('step-detail')"><i class="fas fa-chevron-down"></i></div>
+        </div>
 
-                    <!-- FOTO TANDA TANGAN REKTOR -->
-                    <p class="font-cinzel text-sm sm:text-base md:text-lg text-white font-bold leading-snug">
-                        Dr. HM Nasrullah Yusuf, SE., MBA
-                    </p>
+        <!-- SECTION 3: DETAIL ACARA (Background Image Suasana Wisuda) -->
+        <div class="section-step" id="step-detail">
+            <!-- GANTI URL DI BAWAH INI DENGAN FOTO SUASANA WISUDA/ALUMNI -->
+            <div class="absolute inset-0 z-0">
+                <img src=" https://lifestyle.teknokrat.ac.id/img/wisuda2.jpg"
+                    alt="Graduation Background" class="w-full h-full object-cover opacity-30" />
+                <div
+                    class="absolute inset-0 bg-gradient-to-b from-[rgba(74,14,14,0.6)] via-[rgba(74,14,14,0.4)] to-[rgba(74,14,14,0.7)]">
                 </div>
             </div>
 
-            <!-- Tombol Navigasi -->
-            <div class="nav-btn-next" onclick="goToSection('step-detail')">
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </div>
-
-        <!-- SECTION 3: DETAIL ACARA -->
-        <div class="section-step" id="step-detail">
-            <!-- Background Pattern -->
-            <div class="absolute inset-0 opacity-[0.03]" style="
-            background-image: radial-gradient(#d4af37 1px, transparent 1px);
-            background-size: 30px 30px;
-          "></div>
-
-            <!-- Container dengan padding kanan-kiri lebih lega -->
             <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full" data-aos="fade-up"
                 data-aos-duration="1000">
-                <!-- Header -->
                 <div class="text-center mt-10 sm:mt-8 mb-6 sm:mb-10 md:mb-16">
-                    <h2 class="font-cinzel text-xl sm:text-2xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
-                        Detail Acara Wisuda
-                    </h2>
+                    <h2 class="font-cinzel text-xl sm:text-2xl md:text-4xl font-bold text-white mb-3 sm:mb-4">Detail
+                        Acara Wisuda</h2>
                     <div class="flex items-center justify-center gap-2 sm:gap-3">
                         <div class="h-[1px] w-6 sm:w-8 md:w-12 bg-yellow-500/40"></div>
                         <i class="fas fa-diamond text-yellow-500 text-[7px] sm:text-[8px] md:text-[10px] rotate-45"></i>
@@ -398,106 +369,87 @@
                     </div>
                 </div>
 
-                <!-- Grid Cards dengan max-width biar nggak full -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-[90%] mx-auto">
                     <!-- Card Tanggal -->
                     <div
-                        class="group relative bg-[#8b2c2c]/70 backdrop-blur-sm border border-yellow-600 p-3 sm:p-4 md:p-6 rounded-lg hover: transition-all duration-300 hover:-translate-y-1">
+                        class="group relative bg-[#8b2c2c]/80 backdrop-blur-md border border-yellow-600/50 p-3 sm:p-4 md:p-6 rounded-lg hover:-translate-y-1 transition-all duration-300">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-600 rounded-t-xl"></div>
                         <div class="flex items-start gap-2 sm:gap-3 md:gap-4">
                             <div
-                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-600/10 flex items-center justify-center text-yellow-600 shrink-0">
-                                <i class="far fa-calendar-alt text-base sm:text-lg md:text-xl"></i>
-                            </div>
+                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 shrink-0">
+                                <i class="far fa-calendar-alt text-base sm:text-lg md:text-xl"></i></div>
                             <div>
                                 <p
                                     class="text-gray-300 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
-                                    Hari & Tanggal
-                                </p>
+                                    Hari & Tanggal</p>
                                 <h3
                                     class="font-cinzel text-base sm:text-lg md:text-xl font-bold text-white mb-1 leading-tight">
-                                    Kamis, 30 Juli 2026
-                                </h3>
+                                    Kamis, 30 Juli 2026</h3>
                             </div>
                         </div>
                     </div>
-
-
                     <!-- Card Waktu -->
                     <div
-                        class="group relative bg-[#8b2c2c]/70 backdrop-blur-sm border border-yellow-600 p-3 sm:p-4 md:p-6 rounded-lg hover: transition-all duration-300 hover:-translate-y-1">
+                        class="group relative bg-[#8b2c2c]/80 backdrop-blur-md border border-yellow-600/50 p-3 sm:p-4 md:p-6 rounded-lg hover:-translate-y-1 transition-all duration-300">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex items-start gap-2 sm:gap-3 md:gap-4">
                             <div
-                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
-                                <i class="far fa-clock text-base sm:text-lg md:text-xl"></i>
-                            </div>
+                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-500 shrink-0">
+                                <i class="far fa-clock text-base sm:text-lg md:text-xl"></i></div>
                             <div>
                                 <p
                                     class="text-gray-300 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
-                                    Waktu Pelaksanaan
-                                </p>
+                                    Waktu Pelaksanaan</p>
                                 <h3
                                     class="font-cinzel text-base sm:text-lg md:text-xl font-bold text-white mb-1 leading-tight">
-                                    08:00 WIB - Selesai
-                                </h3>
-                                <p class="text-[9px] sm:text-[10px] md:text-xs text-gray-300 mt-1">
-                                    Registrasi mulai 07:00 WIB
-                                </p>
+                                    08:00 WIB - Selesai</h3>
+                                <p class="text-[9px] sm:text-[10px] md:text-xs text-gray-300 mt-1">Registrasi mulai
+                                    07:00 WIB</p>
                             </div>
                         </div>
                     </div>
-
                     <!-- Card Lokasi -->
                     <div
-                        class="md:col-span-2 group relative bg-[#8b2c2c]/70 backdrop-blur-sm border border-yellow-600 p-3 sm:p-4 md:p-6 rounded-lg hover: transition-all duration-300">
+                        class="md:col-span-2 group relative bg-[#8b2c2c]/80 backdrop-blur-md border border-yellow-600/50 p-3 sm:p-4 md:p-6 rounded-lg transition-all duration-300">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex flex-col md:flex-row md:items-start gap-2 sm:gap-3 md:gap-4">
                             <div
-                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
-                                <i class="fas fa-map-marker-alt text-base sm:text-lg md:text-xl"></i>
-                            </div>
+                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-500 shrink-0">
+                                <i class="fas fa-map-marker-alt text-base sm:text-lg md:text-xl"></i></div>
                             <div class="flex-1">
                                 <p
                                     class="text-gray-300 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
-                                    Tempat Pelaksanaan
-                                </p>
+                                    Tempat Pelaksanaan</p>
                                 <h3
                                     class="font-cinzel text-base sm:text-lg md:text-xl font-bold text-white mb-1 leading-tight">
-                                    Gelanggang Mahasiswa “Dr. HM Nasrullah Yusuf”
-                                    Universitas Teknokrat Indonesia
+                                    Gelanggang Mahasiswa “Dr. HM Nasrullah Yusuf”<br>Universitas Teknokrat Indonesia
                                 </h3>
                                 <p class="text-[10px] sm:text-xs md:text-sm text-gray-300 mb-2 sm:mb-3 leading-relaxed">
-                                    Jl. ZA Pagaralam No. 9-11, Labuhan Ratu, Bandar Lampung
-                                </p>
+                                    Jl. Zainal Abidin Pagaralam No.1, Kota Bandar Lampung, Lampung</p>
                                 <a href="https://maps.google.com/?q=Universitas+Teknokrat+Bandar+Lampung"
                                     target="_blank"
                                     class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 bg-yellow-500/10 text-yellow-500 rounded-full text-[9px] sm:text-xs md:text-sm font-medium transition-all duration-300 active:scale-95">
-                                    <i class="fas fa-external-link-alt text-[9px] sm:text-[10px] md:text-xs"></i>
-                                    Buka Google Maps
+                                    <i class="fas fa-external-link-alt text-[9px] sm:text-[10px] md:text-xs"></i> Buka
+                                    Google Maps
                                 </a>
                             </div>
                         </div>
                     </div>
-
                     <!-- Card Dress Code -->
                     <div
-                        class="md:col-span-2 group relative bg-[#8b2c2c]/70 backdrop-blur-sm border border-yellow-600 p-3 sm:p-4 md:p-6 mb-2 rounded-lg hover: transition-all duration-300">
+                        class="md:col-span-2 group relative bg-[#8b2c2c]/80 backdrop-blur-md border border-yellow-600/50 p-3 sm:p-4 md:p-6 mb-2 rounded-lg transition-all duration-300">
                         <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500 rounded-t-xl"></div>
                         <div class="flex items-start gap-2 sm:gap-3 md:gap-4">
                             <div
-                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
-                                <i class="fas fa-tshirt text-base sm:text-lg md:text-xl"></i>
-                            </div>
+                                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-500 shrink-0">
+                                <i class="fas fa-tshirt text-base sm:text-lg md:text-xl"></i></div>
                             <div>
                                 <p
                                     class="text-gray-300 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider mb-1">
-                                    Pakaian & Tema
-                                </p>
+                                    Pakaian & Tema</p>
                                 <h3
                                     class="font-cinzel text-base sm:text-lg md:text-xl font-bold text-white mb-1 leading-tight">
-                                    Dress Code Wisuda
-                                </h3>
+                                    Dress Code Wisuda</h3>
                                 <p class="text-[10px] sm:text-xs md:text-sm text-gray-300 italic">
                                     Pria: Kemeja Lengan Panjang, Berdasi, dan Celana Gelap <br>
                                     Wanita: Kebaya/Dress, Hijab Merah Maroon
@@ -505,36 +457,29 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="nav-btn-next" onclick="goToSection('step-rundown')"><i class="fas fa-chevron-down"></i></div>
+        </div>
 
+        <!-- SECTION 4: RUNDOWN (Background Image Detail/Toga) -->
+        <div class="section-step" id="step-rundown">
+            <!-- GANTI URL DI BAWAH INI DENGAN FOTO DETAIL TOGA/WISUDAWAN -->
+            <div class="absolute inset-0 z-0">
+                <img src=" https://lifestyle.teknokrat.ac.id/img/wisuda2.jpg"
+                    alt="Graduation Background" class="w-full h-full object-cover opacity-30" />
+                <div
+                    class="absolute inset-0 bg-gradient-to-b from-[rgba(74,14,14,0.6)] via-[rgba(74,14,14,0.4)] to-[rgba(74,14,14,0.7)]">
                 </div>
             </div>
 
-            <!-- Tombol Navigasi -->
-            <div class="nav-btn-next" onclick="goToSection('step-rundown')">
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </div>
-
-        <!-- SECTION 4: RUNDOWN (Minimalis) -->
-        <div class="section-step" id="step-rundown">
-            <!-- Background Pattern -->
-            <div class="absolute inset-0 opacity-[0.03]" style="
-      background-image: radial-gradient(#d4af37 1px, transparent 1px);
-      background-size: 30px 30px;
-    "></div>
-
-            <!-- Container -->
             <div class="relative z-10 max-w-3xl mx-auto px-4 w-full py-8 sm:py-10" data-aos="fade-up"
                 data-aos-duration="1000">
-
-                <!-- Header -->
                 <div class="text-center mb-8">
-                    <p class="text-yellow-500 tracking-[0.15em] uppercase text-xs font-semibold mb-2">
-                        Susunan Kegiatan
+                    <p class="text-yellow-500 tracking-[0.15em] uppercase text-xs font-semibold mb-2">Susunan Kegiatan
                     </p>
-                    <h2 class="font-cinzel text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4">
-                        Rundown Wisuda Periode I
-                    </h2>
+                    <h2 class="font-cinzel text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4">Rundown Wisuda
+                        Periode I</h2>
                     <div class="flex items-center justify-center gap-2">
                         <div class="h-[1px] w-8 bg-yellow-500/40"></div>
                         <i class="fas fa-diamond text-yellow-500 text-[8px] rotate-45"></i>
@@ -542,9 +487,7 @@
                     </div>
                 </div>
 
-                <!-- Timeline Minimalis -->
                 <div class="space-y-6">
-                    <!-- Sesi 1 -->
                     <div class="flex items-center gap-3">
                         <i class="fas fa-door-open text-yellow-500 text-sm"></i>
                         <div>
@@ -552,8 +495,6 @@
                             <p class="text-gray-400 text-xs">Pembukaan, Sambutan, Penghargaan</p>
                         </div>
                     </div>
-
-                    <!-- Sesi 2 -->
                     <div class="flex items-center gap-3">
                         <i class="fas fa-graduation-cap text-yellow-500 text-sm"></i>
                         <div>
@@ -561,8 +502,6 @@
                             <p class="text-gray-400 text-xs">Pengukuhan Wisudawan & Janji Alumni</p>
                         </div>
                     </div>
-
-                    <!-- Sesi 3 -->
                     <div class="flex items-center gap-3">
                         <i class="fas fa-flag-checkered text-yellow-500 text-sm"></i>
                         <div>
@@ -572,63 +511,59 @@
                     </div>
                 </div>
 
-                <!-- Catatan Penting -->
-                <div class="mt-6 p-3 bg-[#8b2c2c]/70 backdrop-blur-sm border-l-4 border-yellow-500 rounded-r-md">
-                    <h4 class="text-yellow-500 font-bold text-xs uppercase mb-1 flex items-center gap-1">
-                        <i class="fas fa-exclamation-circle"></i> Catatan Penting
-                    </h4>
-                    <p class="text-gray-300 text-xs leading-relaxed">
-                        Pengurus Yayasan, Kepala LLDIKTI II, dan PJ Gubernur Lampung
-                        <span class="text-white font-medium">hanya menghadiri Sesi I : Pembukaan</span>.
-                    </p>
+                <div class="mt-6 p-3 bg-[#8b2c2c]/80 backdrop-blur-md border-l-4 border-yellow-500 rounded-r-md">
+                    <h4 class="text-yellow-500 font-bold text-xs uppercase mb-1 flex items-center gap-1"><i
+                            class="fas fa-exclamation-circle"></i> Catatan Penting</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">Pengurus Yayasan, Kepala LLDIKTI II, dan PJ
+                        Gubernur Lampung <span class="text-white font-medium">hanya menghadiri Sesi I :
+                            Pembukaan</span>.</p>
                 </div>
             </div>
-
-            <!-- Tombol Navigasi -->
-            <div class="nav-btn-next mt-6" onclick="goToSection('step-footer')">
-                <i class="fas fa-chevron-down"></i>
+            <div class="nav-btn-next mt-6" onclick="goToSection('step-footer')"><i class="fas fa-chevron-down"></i>
             </div>
         </div>
 
-
-        <!-- SECTION 5: FOOTER -->
+        <!-- SECTION 5: FOOTER (Background Image Malam/Closing) -->
         <div class="section-step" id="step-footer">
-            <div class="absolute inset-0 opacity-[0.02]" style="
-            background-image: radial-gradient(#d4af37 1px, transparent 1px);
-            background-size: 24px 24px;
-          "></div>
+            <!-- GANTI URL DI BAWAH INI DENGAN FOTO MALAM/HALL UTAMA -->
+            <div class="absolute inset-0 z-0">
+                <img src=" https://lifestyle.teknokrat.ac.id/img/wisuda2.jpg"
+                    alt="Graduation Background" class="w-full h-full object-cover opacity-30" />
+                <div
+                    class="absolute inset-0 bg-gradient-to-b from-[rgba(74,14,14,0.6)] via-[rgba(74,14,14,0.4)] to-[rgba(74,14,14,0.7)]">
+                </div>
+            </div>
+            <!-- <div class="bg-maroon-overlay"
+                style="background: linear-gradient(to bottom, rgba(74, 14, 14, 0.9) 0%, rgba(74, 14, 14, 0.95) 100%);">
+            </div> -->
+
             <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
                 <div class="flex flex-col items-center mb-8">
                     <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
                         alt="Logo UT" class="h-14 w-auto object-contain opacity-90 mb-4" />
-                    <h3 class="font-cinzel text-lg md:text-xl font-bold text-white tracking-wide">
-                        UNIVERSITAS TEKNOKRAT INDONESIA
-                    </h3>
-                    <p class="text-gray-300 text-xs mt-1 uppercase tracking-widest">
-                       Disiplin, Bermutu, Kreatif & Inovatif
+                    <h3 class="font-cinzel text-lg md:text-xl font-bold text-white tracking-wide">UNIVERSITAS TEKNOKRAT
+                        INDONESIA</h3>
+                    <p class="text-gray-300 text-xs mt-1 uppercase tracking-widest">Disiplin, Bermutu, Kreatif & Inovatif
                     </p>
                 </div>
                 <div class="flex justify-center gap-4 mb-8">
                     <a href="https://www.instagram.com/teknokrat_official/" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/70 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/80 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
                             class="fab fa-instagram text-lg"></i></a>
                     <a href="https://www.facebook.com/kuliahditeknokrat/" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/70 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/80 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
                             class="fab fa-facebook-f text-lg"></i></a>
                     <a href="https://www.youtube.com/@UNIVERSITASTEKNOKRATINDONESIA" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/70 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/80 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
                             class="fab fa-youtube text-lg"></i></a>
                     <a href="https://teknokrat.ac.id" target="_blank"
-                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/70 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
+                        class="w-10 h-10 rounded-full bg-[#8b2c2c]/80 border border-white/5 flex items-center justify-center text-gray-300 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-lg hover:-translate-y-1"><i
                             class="fas fa-globe text-lg"></i></a>
                 </div>
                 <div class="border-t border-white/5 pt-6 mb-8">
-                    <p class="text-gray-400 text-xs">
-                        &copy; 2026 Universitas Teknokrat Indonesia. All Rights Reserved.
+                    <p class="text-gray-400 text-xs">&copy; 2026 Universitas Teknokrat Indonesia. All Rights Reserved.
                     </p>
                 </div>
-
-                <!-- Tombol Kembali ke Atas -->
                 <button onclick="goToSection('step-hero')"
                     class="px-6 py-2 border border-yellow-500 text-yellow-500 rounded-full hover:bg-yellow-500 hover:text-red-900 transition-all text-sm font-bold">
                     <i class="fas fa-arrow-up mr-2"></i> Ulangi Undangan
@@ -642,78 +577,35 @@
         class="fixed inset-0 z-[200] bg-[#4a0e0e] flex flex-col items-center justify-center transition-opacity duration-500">
         <img src="https://teknokrat.ac.id/wp-content/uploads/2022/04/UNIVERSITASTEKNOKRAT-e1647677057867-768x774-min.png"
             alt="Loading Logo" class="h-20 w-auto animate-pulse mb-4" />
-        <p class="text-yellow-500 text-xs uppercase tracking-[0.3em]">
-            Menyiapkan undangan khusus...
-        </p>
+        <p class="text-yellow-500 text-xs uppercase tracking-[0.3em]">Menyiapkan undangan khusus...</p>
     </div>
 
     <script>
-        // Initialize AOS
         AOS.init({ once: true, offset: 50, duration: 800 });
 
-        // ✅ STEP-BY-STEP NAVIGATION LOGIC
         function goToSection(targetId) {
-            // Sembunyikan semua section
-            document.querySelectorAll(".section-step").forEach((el) => {
-                el.classList.remove("active");
-            });
-
-            // Tampilkan target section
+            document.querySelectorAll(".section-step").forEach((el) => el.classList.remove("active"));
             const target = document.getElementById(targetId);
             if (target) {
                 target.classList.add("active");
-                // Reset AOS agar animasi main ulang setiap kali section muncul
                 setTimeout(() => AOS.refresh(), 100);
             }
         }
 
-        // Support Swipe di Mobile
-        let touchStartY = 0;
-        let touchEndY = 0;
-
-        document.addEventListener(
-            "touchstart",
-            (e) => {
-                touchStartY = e.changedTouches[0].screenY;
-            },
-            { passive: true },
-        );
-        document.addEventListener(
-            "touchend",
-            (e) => {
-                touchEndY = e.changedTouches[0].screenY;
-                handleSwipe();
-            },
-            { passive: true },
-        );
+        let touchStartY = 0; let touchEndY = 0;
+        document.addEventListener("touchstart", (e) => { touchStartY = e.changedTouches[0].screenY; }, { passive: true });
+        document.addEventListener("touchend", (e) => { touchEndY = e.changedTouches[0].screenY; handleSwipe(); }, { passive: true });
 
         function handleSwipe() {
-            // Jangan trigger swipe jika sedang scroll di dalam konten rundown
             const activeSection = document.querySelector(".section-step.active");
-            if (
-                activeSection &&
-                activeSection.scrollTop > 0 &&
-                activeSection.scrollTop <
-                activeSection.scrollHeight - activeSection.clientHeight
-            )
-                return;
-
+            if (activeSection && activeSection.scrollTop > 0 && activeSection.scrollTop < activeSection.scrollHeight - activeSection.clientHeight) return;
             const currentActive = document.querySelector(".section-step.active");
             const sections = Array.from(document.querySelectorAll(".section-step"));
             const currentIndex = sections.indexOf(currentActive);
-
-            // Geser ke bawah (Next)
-            if (touchStartY - touchEndY > 50) {
-                if (currentIndex < sections.length - 1)
-                    goToSection(sections[currentIndex + 1].id);
-            }
-            // Geser ke atas (Back)
-            if (touchEndY - touchStartY > 50) {
-                if (currentIndex > 0) goToSection(sections[currentIndex - 1].id);
-            }
+            if (touchStartY - touchEndY > 50 && currentIndex < sections.length - 1) goToSection(sections[currentIndex + 1].id);
+            if (touchEndY - touchStartY > 50 && currentIndex > 0) goToSection(sections[currentIndex - 1].id);
         }
 
-        // Audio Logic
         const audio = document.getElementById("bg-music");
         const musicControl = document.getElementById("music-control");
         const musicIcon = document.getElementById("music-icon");
@@ -721,42 +613,18 @@
 
         function openInvitation() {
             const overlay = document.getElementById("opening-overlay");
-            audio.volume = 0.5;
-            audio
-                .play()
-                .then(() => {
-                    isPlaying = true;
-                    musicControl.classList.remove("hidden");
-                })
-                .catch((error) => {
-                    console.log("Autoplay prevented:", error);
-                    musicControl.classList.remove("hidden");
-                });
-
+            audio.volume = 0.9;
+            audio.play().then(() => { isPlaying = true; musicControl.classList.remove("hidden"); })
+                .catch((error) => { console.log("Autoplay prevented:", error); musicControl.classList.remove("hidden"); });
             overlay.classList.add("hidden-overlay");
-            // Tetap overflow hidden karena kita pakai step-by-step
-            // document.body.style.overflowY = "auto";
         }
 
         function toggleMusic() {
-            if (isPlaying) {
-                audio.pause();
-                musicIcon.classList.remove("fa-pause");
-                musicIcon.classList.add("fa-play");
-                musicControl
-                    .querySelector("button")
-                    .classList.remove("music-btn-pulse");
-            } else {
-                audio.play();
-                musicIcon.classList.remove("fa-play");
-                musicIcon.classList.add("fa-pause");
-                musicControl.querySelector("button").classList.add("music-btn-pulse");
-            }
+            if (isPlaying) { audio.pause(); musicIcon.classList.remove("fa-pause"); musicIcon.classList.add("fa-play"); musicControl.querySelector("button").classList.remove("music-btn-pulse"); }
+            else { audio.play(); musicIcon.classList.remove("fa-play"); musicIcon.classList.add("fa-pause"); musicControl.querySelector("button").classList.add("music-btn-pulse"); }
             isPlaying = !isPlaying;
         }
     </script>
-
-    <!-- Script API Tamu Dinamis -->
     <script src="api-tamu.js"></script>
 </body>
 
