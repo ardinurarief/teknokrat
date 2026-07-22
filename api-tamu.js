@@ -112,9 +112,15 @@ function updateUI(data) {
     // 6. Apply Sapaan ke Elemen HTML
     document.getElementById('guest-sapaan').innerText = sapaanCover;
     document.getElementById('sambutan-sapaan').innerText = sapaanSambutan;
-
-    // Update nama di section sambutan juga (format sama: Nama, Gelar)
     document.getElementById('sambutan-nama').innerText = fullDisplayName;
+
+    const hubunganEl = document.getElementById('guest-hubungan');
+    if (hubunganEl && data.hubungan_tamu) {
+        hubunganEl.innerText = data.hubungan_tamu;
+        hubunganEl.classList.remove('hidden'); // Pastikan elemen terlihat
+    } else if (hubunganEl) {
+        hubunganEl.classList.add('hidden'); // Sembunyikan jika data kosong
+    }
 }
 
 function finishLoading() {
