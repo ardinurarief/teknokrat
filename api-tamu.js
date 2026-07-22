@@ -114,13 +114,14 @@ function updateUI(data) {
     document.getElementById('sambutan-sapaan').innerText = sapaanSambutan;
     document.getElementById('sambutan-nama').innerText = fullDisplayName;
 
-    const hubunganEl = document.getElementById('guest-hubungan');
-    if (hubunganEl && data.hubungan_tamu) {
-        hubunganEl.innerText = data.hubungan_tamu;
-        hubunganEl.classList.remove('hidden'); // Pastikan elemen terlihat
-    } else if (hubunganEl) {
-        hubunganEl.classList.add('hidden'); // Sembunyikan jika data kosong
-    }
+    // ✅ GANTI: gunakan 'hubungan' sesuai header di spreadsheet
+const hubunganEl = document.getElementById('guest-hubungan');
+if (hubunganEl && data.hubungan) {
+    hubunganEl.innerText = data.hubungan;
+    hubunganEl.classList.remove('hidden');
+} else if (hubunganEl) {
+    hubunganEl.classList.add('hidden');
+}
 }
 
 function finishLoading() {
